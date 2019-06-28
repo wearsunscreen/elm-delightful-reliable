@@ -1,16 +1,25 @@
 # Elm
 
-## A delightful language for reliable web apps
+## A __delightful__ language for __reliable__ web apps
 
 ---
 
 ## Delightful
 
-### Evan Czaplicki -- "one of my primary goals is for Elm to be extraordinarily easy to learn and use productively"
+"... one of my primary goals is for Elm to be extraordinarily easy to learn and 
+use productively" -- Evan Czaplicki
 
 <img src="evan-richard.jpg" alt="Evan and Richard" width="600"/>
 
-### Elm Community
+### Basics
+
+* simple, consistent, concise ML syntax
+* compiles to Javascript
+* pure functional, all variables are immutable
+* statically typed
+* type inferencing
+
+### Positive, Welcoming, Helpful Community
 
 * From the Elm Community Code of Conduct
   * Be friendly, welcoming and inclusive.
@@ -19,16 +28,13 @@
   * Avoid negative behaviour.
 * elm-lang.slack.com
 
-### tools
-* elm-format - All Elm code everywhere is formatted the same. 
+### Simple, elegant tools
 * ellie - Like JSFiddle / Codepen
-* Compiler error for humans
+* elm-format - All Elm code everywhere is formatted the same. 
+* Compiler errors for humans
 * Time-travelling debugger
-* package publishing  
-  * on github
-  * semantic versioning
-  * minimum requirements make packages useful to others
-  * read me file length
+* all packages on github
+* semantic versioning
 * installation
 ```yaml
 npm install -g elm
@@ -40,18 +46,10 @@ elm make src/*.elm
 elm-live src/Main.elm --open -- --debug
 ```
 
-### syntax
-* simple, consistent, concise ML syntax
-* powerful type system
-* type inferencing
-
+### When it compiles, it works
 ---
 
 ## Reliable
-
-### Elm is a pure functional statically typed language
-
-* All variables are immutable
 
 ### No runtime exceptions!
 
@@ -62,10 +60,11 @@ elm-live src/Main.elm --open -- --debug
 Simple example
 
 ```elm
-type Tree = Leaf Int
-          | Node Tree Tree
+type Tree 
+  = Leaf Int
+  | Node Tree Tree
 
--- note it can be recursively defined
+-- note the recursive definition
 ```
 <img src="simple-tree.svg" alt="Example tree" width="200"/>
 
@@ -83,8 +82,9 @@ Pattern matching
 depthOfTree : Tree -> Int
 depthOfTree tree =
     case tree of 
-        Leaf n -> 
+        Leaf _ -> 
             1
+
         Tree right left ->
             1 + max (depthOfTree left) (depthOfTree right)
 ```
@@ -92,37 +92,37 @@ depthOfTree tree =
 Parameterized type
 
 ```elm
-type Tree a = Leaf a
-          | Node Tree Tree
+type Tree a 
+  = Leaf a
+  | Node (Tree a) (Tree a)
 ```
 
+How is ADT useful?
+
+```elm
+full = [ "bunch", "of", "strings"]
+empty = []
+
+getFirstElement : List String -> String
+getFirstElement list = 
+    List.head list
+```
 Maybe
 
 ```elm
 type Maybe a = Just a | Nothing
 ```
 
-What does List.head return?
-
-```elm
-full = [ "bunch", "of", "strings"]
-empty = []
-
-exampleFun : List String -> String
-exampleFun list = 
-    List.head list
-```
-
-Maybe
+Maybe example
 ```elm
 
-example1 : List String -> Maybe String
-example1 list = 
+getFirstElement : List String -> Maybe String
+getFirstElement list = 
     List.head list
 
 
-example2 : List String -> String
-example2 list =
+getFirstElement_ : List String -> String
+getFirstElement_ list =
     case List.head list of 
         Nothing ->
             "default value"
@@ -148,25 +148,9 @@ takeHttpResult result model =
           showError model errorCode
 ```
 
-## make impossible impossible
+## Make impossible states impossible
 
 "Making Impossible States Impossible" by Richard Feldman - https://www.youtube.com/watch?v=IcgmSRJHu_8      
-
-## The Elm Architecture
-
-![The Elm Architecture](diagram-tea.png)
-
-Image by Sebastian Porto https://github.com/sporto/elm-workshop (Creative Commons)
-
-## Simple example
-
-https://ellie-app.com/3Z97Y4VvSfRa1
-
-## Interacting with Javascript
-
-Communication with Javascript is through asynchronous ports
-
-https://ellie-app.com/3Z9dKFRMyNDa1
 
 ## Piping
 
@@ -195,18 +179,25 @@ firstFriend list =
     |> Maybe.andThen List.head
     |> Maybe.map .name
     |> Maybe.map String.toUpper
-
-{-| return a list of Colors of the size of a game grid
--}
-buildGrid : Int -> Int -> Int -> Int -> Grid
-buildGrid rows columns numColors seedInt =
-    listOfSeeds (rows * columns) (initialSeed seedInt)
-        |> map (\x -> Random.step (int 0 (numColors - 1)) x)
-        |> map Tuple.first
-        |> subdivide rows
 ```
 
 Scott Wlaschin - Railway Oriented Programming — error handling in functional languages - https://vimeo.com/97344498
+
+## The Elm Architecture
+
+![The Elm Architecture](diagram-tea.png)
+
+Image by Sebastian Porto https://github.com/sporto/elm-workshop (Creative Commons)
+
+## Simple example
+
+https://ellie-app.com/3Z97Y4VvSfRa1
+
+## Interacting with Javascript
+
+Communication with Javascript is through asynchronous ports
+
+https://ellie-app.com/3Z9dKFRMyNDa1
 
 ## Other cool things
 
@@ -224,10 +215,13 @@ You can't do everything in Elm (yet)
 
 Still changing
 
-## Alternatives (Functional, typed)
+## Alternatives
 
-Reason 
-
-Purescript
-
-ghcjs (Haskell)
+* Typed, Functional, Pure
+  * Purescript
+  * ghcjs (Haskell)
+* Typed, Functional
+  * Reason 
+* Typed
+  * Typescript
+  * Flow
