@@ -160,12 +160,15 @@ weirdReversal1 string =
   String.filter isNotSpace (String.toUpper (String.reverse string))
 
 weirdReversal2 string =
-string
-  |> String.reverse
-  |> String.toUpper
-  |> String.filter isNotSpace
+  string
+    |> String.reverse
+    |> String.toUpper
+    |> String.filter isNotSpace
+```
 
+Handling errors in pipes
 
+```elm
 type alias Friend 
   { name : String 
   , friends : List Friend
@@ -181,7 +184,7 @@ firstFriend list =
     |> Maybe.map String.toUpper
 ```
 
-Scott Wlaschin - Railway Oriented Programming — error handling in functional languages - https://vimeo.com/97344498
+Railway Oriented Programming — error handling in functional languages - https://vimeo.com/97344498 - Scott Wlaschin
 
 ## The Elm Architecture
 
